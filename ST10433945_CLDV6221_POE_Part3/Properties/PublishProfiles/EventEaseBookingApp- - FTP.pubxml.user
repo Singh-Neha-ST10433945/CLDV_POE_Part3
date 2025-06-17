@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+This file is used by the publish/package process of your Web project. You can customize the behavior of this process
+by editing this MSBuild file. In order to learn more about this please visit https://go.microsoft.com/fwlink/?LinkID=208121. 
+-->
+<Project>
+  <PropertyGroup>
+    <TimeStampOfAssociatedLegacyPublishXmlFile />
+    <EncryptedPassword>AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAueodD4npvU6ZlcPKoWBrYgAAAAACAAAAAAAQZgAAAAEAACAAAACGN93e+6rIW5bF1gc1oQA2gSUj/pT3JKoZPNbPJAa0BAAAAAAOgAAAAAIAACAAAABDkHH6JExHPG36QCSZpAEqBMywRHJ2u997QfuX8ckf6YAAAAAx/vx/TS/xRBPbzP3lvIvWjj1XAJVDH6DpZUfRJdcqDguCVjmFvSNtX2tjy9/xKOu9o8e4Cku8xTJWvp1+k1ioUVbZi6d03l8kwB0mb6LC3BgRLwbrdI0/vbJxBbVbvNwt5cfXPCF7/aIwFfTJkgqq55LeHYvCAAdQLg12DJw5LUAAAAARxS2vw4gXq6qFLVFcsF0qmJRZt/TUqs25qzfmRKZuMzUa5pyAMtl9k86u992qHUvOSoLJUIRLCox6Bq08lYOR</EncryptedPassword>
+    <_PublishTargetUrl>ftps://waws-prod-jnb21-011.ftp.azurewebsites.windows.net/site/wwwroot</_PublishTargetUrl>
+    <History>False|2025-06-17T11:08:38.8923651Z||;False|2025-06-17T13:08:07.4144397+02:00||;False|2025-05-12T17:13:06.7627047+02:00||;</History>
+    <LastFailureDetails />
+  </PropertyGroup>
+</Project>

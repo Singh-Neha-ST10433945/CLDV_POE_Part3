@@ -1,0 +1,128 @@
+﻿@model IEnumerable<EventEaseBookingSystem.Models.Venue>
+@{
+    ViewData["Title"] = "Venues";
+    var alert = ViewData["Alert"]?.ToString();
+    var alertType = ViewData["AlertType"]?.ToString() ?? "info";
+}
+
+<h2>📍 Venues</h2>
+
+@if (!string.IsNullOrEmpty(alert))
+{
+    <div class="alert alert-@alertType alert-dismissible fade show" role="alert">
+        @alert
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+
+<form method="get" asp-action="Index" class="mb-3">
+    <div class="input-group">
+        <input type="text" name="search" class="form-control" placeholder="Search by venue name..." />
+        <button type="submit" class="btn btn-outline-primary">🔍 Search</button>
+    </div>
+</form>
+
+<a asp-action="Create" class="btn btn-success mb-3"><i class="fas fa-plus"></i> Add Venue</a>
+
+<table class="table table-bordered table-hover bg-white shadow-sm">
+    <thead class="table-success">
+        <tr>
+            <th>Image</th>
+            <th>Name</th>
+            <th>Location</th>
+            <th>Capacity</th>
+            <th>Available</th>
+            <th style="width: 300px;">Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var venue in Model)
+        {
+            <tr>
+                <td>
+                    @if (!string.IsNullOrEmpty(venue.ImageUrl))
+                    {
+                        <img src="@venue.ImageUrl" alt="Image" style="height: 60px;" class="rounded shadow-sm" />
+                    }
+                    else
+                    {
+                        <span class="text-muted fst-italic">No image</span>
+                    }
+                </td>
+                <td>@venue.VenueName</td>
+                <td>@venue.Location</td>
+                <td>@venue.Capacity</td>
+                <td>
+                    <button class="btn btn-outline-info btn-sm check-availability-btn"
+                            data-venue-id="@venue.VenueId"
+                            data-venue-name="@venue.VenueName">
+                        🔎 Check
+                    </button>
+                </td>
+                <td>
+                    <a asp-action="Details" asp-route-id="@venue.VenueId" class="btn btn-info btn-sm me-1">ℹ️ Details</a>
+                    <a asp-action="Edit" asp-route-id="@venue.VenueId" class="btn btn-warning btn-sm me-1">✏️ Edit</a>
+                    <a asp-action="Delete" asp-route-id="@venue.VenueId" class="btn btn-danger btn-sm">🗑️ Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<!-- ✅ Modal for checking availability -->
+<div class="modal fade" id="availabilityModal" tabindex="-1" aria-labelledby="availabilityModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="availabilityModalLabel">Check Availability</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" id="venueId" />
+                <p>Enter date to check for venue availability:</p>
+                <input type="date" id="availabilityDate" class="form-control" />
+                <div id="availabilityResult" class="mt-3 fw-bold"></div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="checkAvailabilityBtn" class="btn btn-primary">Check</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        let selectedVenueId = null;
+
+        document.querySelectorAll('.check-availability-btn').forEach(btn => {
+            btn.addEventListener('click', e => {
+                e.preventDefault();
+                selectedVenueId = btn.dataset.venueId;
+                document.getElementById('availabilityResult').innerHTML = '';
+                new bootstrap.Modal(document.getElementById('availabilityModal')).show();
+            });
+        });
+
+        document.getElementById('checkAvailabilityBtn').addEventListener('click', () => {
+            const date = document.getElementById('availabilityDate').value;
+            if (!date) {
+                alert('Please select a date.');
+                return;
+            }
+
+            fetch(`/Venue/CheckAvailability?venueId=${selectedVenueId}&date=${date}`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.available) {
+                        document.getElementById('availabilityResult').innerHTML =
+                            '<span class="text-success"><i class="fas fa-check-circle"></i> Available</span>';
+                    } else {
+                        document.getElementById('availabilityResult').innerHTML =
+                            '<span class="text-danger"><i class="fas fa-times-circle"></i> Not Available</span>';
+                    }
+                })
+                .catch(err => console.error(err));
+        });
+    </script>
+}

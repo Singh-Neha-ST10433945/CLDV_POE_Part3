@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+https://go.microsoft.com/fwlink/?LinkID=208121.
+-->
+<Project>
+  <PropertyGroup>
+    <TimeStampOfAssociatedLegacyPublishXmlFile />
+    <EncryptedPassword>AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAueodD4npvU6ZlcPKoWBrYgAAAAACAAAAAAAQZgAAAAEAACAAAABYzX5laEQbrHnVCv8rwq1jSbHheECQz2PmN8MFn45kHgAAAAAOgAAAAAIAACAAAABIjbhK2SO1MM62cYX5iuEFyc+rOnsNq8z+yaeU+0kcMYAAAAB5rwYjw0LkdbSjq9VPhx61kkRtQAILikc9K7YXlGXAdhGgTJnB/2pcN8XEtVWL6rEtBRxVZrS2wYhpQY9S5nUQxXQyAbW7DqdsYpbPzz8r7MoJIz56TYI/syXCeA/WQNpT34N+3bkSuPSM3L8f4qDZoFllLu2ENuKcUFwqtIprf0AAAACuHsaAPshHdVGeVmWNiupP+8sWL2dQ5mydMF4MXBbQkdSu9kK3QStmxE0L9/Gy9xsaiHwmaV8BbtTzdGUvSX3g</EncryptedPassword>
+    <_PublishTargetUrl>ftp://waws-prod-jnb21-011.ftp.azurewebsites.windows.net/site/wwwroot</_PublishTargetUrl>
+    <History>False|2025-05-10T21:03:19.6793641Z||;False|2025-05-10T22:59:03.9135877+02:00||;False|2025-05-10T22:57:17.4763905+02:00||;</History>
+    <LastFailureDetails />
+  </PropertyGroup>
+</Project>

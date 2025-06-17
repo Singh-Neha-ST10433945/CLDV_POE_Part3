@@ -1,0 +1,107 @@
+﻿@model IEnumerable<EventEaseBookingSystem.Models.Booking>
+
+@{
+    ViewData["Title"] = "Bookings";
+    var alert = ViewData["Alert"]?.ToString();
+    var alertType = ViewData["AlertType"]?.ToString() ?? "info";
+}
+
+<h2><i class="fas fa-book"></i> Bookings</h2>
+
+@if (!string.IsNullOrEmpty(alert))
+{
+    <div class="alert alert-@alertType alert-dismissible fade show" role="alert">
+        @alert
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+
+<form method="get" asp-action="Index" class="mb-3">
+    <div class="row g-2 align-items-end">
+        <div class="col-md-2">
+            <input type="text" name="search" class="form-control" placeholder="Booking ID..." />
+        </div>
+        <div class="col-md-2">
+            <select name="eventTypeId" class="form-select">
+                <option value="">All Event Types</option>
+                @foreach (var et in (IEnumerable<EventEaseBookingSystem.Models.EventType>)ViewBag.EventTypes)
+                {
+                    <option value="@et.EventTypeId">@et.Name</option>
+                }
+            </select>
+        </div>
+        <div class="col-md-2">
+            <input type="date" name="startDate" class="form-control" />
+        </div>
+        <div class="col-md-2">
+            <input type="date" name="endDate" class="form-control" />
+        </div>
+        <div class="col-md-2">
+            <select name="venueAvailability" class="form-select">
+                <option value="">All Venues</option>
+                <option value="true">Available</option>
+                <option value="false">Not Available</option>
+            </select>
+        </div>
+        <div class="col-md-2">
+            <button type="submit" class="btn btn-outline-primary w-100">
+                <i class="fas fa-search"></i> Search
+            </button>
+        </div>
+    </div>
+</form>
+
+
+
+<a asp-action="Create" class="btn btn-success mb-3">
+    <i class="fas fa-plus"></i> Add Booking
+</a>
+
+<table class="table table-bordered table-hover table-striped">
+    <thead class="table-success">
+        <tr>
+            <th>ID</th>
+            <th>Event</th>
+            <th>Type</th>
+            <th>Venue</th>
+            <th>Available</th>
+            <th>Date</th>
+            <th>Time</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var booking in Model)
+        {
+            <tr>
+                <td>@booking.BookingId</td>
+                <td>@booking.Event?.EventName</td>
+                <td>@booking.Event?.EventType?.Name</td>
+                <td>@booking.Venue?.VenueName</td>
+                <td>
+                    @if (booking.Venue?.Availability == true)
+                    {
+                        <span class="badge bg-success">✔️ Available</span>
+                    }
+                    else if (booking.Venue?.Availability == false)
+                    {
+                        <span class="badge bg-danger">❌ Not Available</span>
+                    }
+                    else
+                    {
+                        <span class="badge bg-secondary">Unknown</span>
+                    }
+                </td>
+
+
+                <td>@booking.BookingDate.ToShortDateString()</td>
+                <td>@booking.BookingDate.ToShortTimeString()</td>
+                <td>
+                    <a asp-action="Details" asp-route-id="@booking.BookingId" class="btn btn-info btn-sm me-1">Details</a>
+                    <a asp-action="Edit" asp-route-id="@booking.BookingId" class="btn btn-warning btn-sm me-1">Edit</a>
+                    <a asp-action="Delete" asp-route-id="@booking.BookingId" class="btn btn-danger btn-sm">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
